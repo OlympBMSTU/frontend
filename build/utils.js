@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const config = require('./config.js')
+const config = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
@@ -18,8 +18,7 @@ exports.cssLoaders = function (options) {
   const cssLoader = {
     loader: 'css-loader',
     options: {
-      sourceMap: options.sourceMap,
-      modules: true
+      sourceMap: options.sourceMap
     }
   }
 
@@ -27,8 +26,7 @@ exports.cssLoaders = function (options) {
     loader: 'postcss-loader',
     options: {
       sourceMap: options.sourceMap,
-      plugins: () => [require('autoprefixer')],
-      modules: true
+      plugins: () => [require('autoprefixer')]
     }
   }
 
@@ -40,8 +38,7 @@ exports.cssLoaders = function (options) {
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap,
-          modules: true
+          sourceMap: options.sourceMap
         })
       })
     }
@@ -62,8 +59,11 @@ exports.cssLoaders = function (options) {
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
+    less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass')
+    scss: generateLoaders('sass'),
+    stylus: generateLoaders('stylus'),
+    styl: generateLoaders('stylus')
   }
 }
 
